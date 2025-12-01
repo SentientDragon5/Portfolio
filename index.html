@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logan | Creative Technologist</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --text-color: #e0e0e0;
+            --accent-color: #64ffda;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px; 
+        }
+
+        #p5-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 15, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
+        
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav a { text-decoration: none; color: var(--text-color); transition: color 0.3s; }
+        nav a:hover { color: var(--accent-color); }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 10px; line-height: 1.1; }
+        .hero h2 { font-size: 2rem; color: var(--accent-color); font-weight: 400; margin-bottom: 20px; }
+        .hero p { max-width: 600px; font-size: 1.1rem; margin-bottom: 30px; color: #aaa; }
+
+        .hero-actions { display: flex; flex-direction: column; gap: 25px; align-items: flex-start; }
+
+        .cta-button {
+            padding: 12px 30px;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover { background: var(--accent-color); color: var(--bg-color); }
+
+        .hero-socials a {
+            color: #aaa; font-size: 1.8rem; margin-right: 25px; transition: all 0.3s;
+        }
+        .hero-socials a:hover { color: var(--accent-color); transform: translateY(-3px); }
+
+        .section-title {
+            font-size: 2rem; margin-bottom: 40px;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 10px; display: inline-block;
+            margin-top: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 100px; }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px; margin-bottom: 100px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px; padding: 25px;
+            backdrop-filter: blur(10px);
+            display: flex; flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+
+        .tags { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tag {
+            font-size: 0.8rem; background: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color); padding: 2px 10px; border-radius: 20px;
+        }
+
+        .project-card h3 { margin-bottom: 10px; }
+        .project-card p { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; flex-grow: 1; }
+        
+        .project-links a {
+            margin-right: 15px; color: var(--text-color);
+            text-decoration: none; font-size: 0.9rem;
+        }
+        .project-links a:hover { color: var(--accent-color); }
+
+        .project-image-container {
+            width: 100%; height: 200px; overflow: hidden;
+            border-radius: 5px; border: 1px solid rgba(255,255,255,0.1);
+            margin-top: auto;
+        }
+        .project-image-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-image-container img { transform: scale(1.05); }
+
+        footer {
+            text-align: center; padding: 50px 0; color: #666;
+            border-top: 1px solid var(--card-border); margin-top: 50px;
+        }
+        .footer-socials a { color: var(--text-color); font-size: 1.5rem; margin: 0 15px; transition: color 0.3s; }
+        .footer-socials a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="p5-container"></div>
+
+    <header>
+        <div class="header-inner">
+            <div class="logo">SentientDragon5</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#work">Work</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <section class="hero">
+                <h1>Hi, I'm Logan.</h1>
+                <h2>Creative Technologist & HCI Researcher</h2>
+                <p>I build interactive systems and work on unique experiences.</p>
+                
+                <div class="hero-actions">
+                    <a href="#work" class="cta-button">View Selected Works</a>
+                    <div class="social-links hero-socials">
+                        <a href="https://github.com/SentientDragon5" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/lashehane/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://sentientdragon5gamedev.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
+                        <a href="https://www.youtube.com/channel/UCZEltrbIFCFMIkhtptoBxMw" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" style="margin-bottom: 100px;">
+                <h2 class="section-title">About Me</h2>
+                <p style="max-width: 700px; color: #ccc;">
+                    I am a Computer Science Game Design student at UC Santa Cruz, I am interested in working in Human-Computer Interaction (HCI) and interface design.
+                    I am interested in researching how tools like LLMs can act as collaborative partners.
+                </p>
+            </section>
+
+            <section id="work">
+                <h2 class="section-title">Selected Projects</h2>
+                <div class="project-grid">
+                    <article class="project-card">
+                        <div class="tags"><span class="tag">HCI</span><span class="tag">LLM</span></div>
+                        <h3>Co-Creative Map Maker</h3>
+                        <p>Experimental tool exploring how LLMs can assist designers in procedural terrain generation without removing user agency.</p>
+                        <div class="project-links"><a href="https://github.com/SentientDragon5/CMPM-118-LLM-Test" target="_blank"><i class="fab fa-github"></i> Code</a></div>
+                        <div class="project-image-container">
+                            <img src="https://placehold.co/600x400/161b22/64ffda?text=LLM+Tool" alt="LLM Tool">
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="tags"><span class="tag">Design</span><span class="tag">Unity</span></div>
+                        <h3>Palette of Dreams</h3>
+                        <p>Mechanic-driven adventure game where player input directly alters the environment state through a painting interface.</p>
+                        <div class="project-links"><a href="https://sentientdragon5gamedev.itch.io/palette-of-dreams" target="_blank"><i class="fas fa-play"></i> Play</a></div>
+                        <div class="project-image-container">
+                            <img src="https://placehold.co/600x400/2a1a35/d8b4e2?text=Palette+Game" alt="Palette Game">
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="tags"><span class="tag">Robotics</span><span class="tag">Python</span></div>
+                        <h3>Slugbotics ARM</h3>
+                        <p>Developed control scripts for robotic arm manipulation, focusing on precision movement and automated task sequences.</p>
+                        <div class="project-links"><a href="https://github.com/SentientDragon5/Slugbotics" target="_blank"><i class="fab fa-github"></i> Repo</a></div>
+                        <div class="project-image-container">
+                            <img src="https://placehold.co/600x400/1a1a1a/e0e0e0?text=Robotics" alt="Robotics">
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="tags"><span class="tag">Tools</span><span class="tag">Godot</span></div>
+                        <h3>3D Climbing Controller</h3>
+                        <p>Open-source controller implementing complex surface normal calculations and friction mechanics for free-form climbing.</p>
+                        <div class="project-links"><a href="https://github.com/SentientDragon5/godot4-climbing-third-person-controller" target="_blank"><i class="fab fa-github"></i> Code</a></div>
+                        <div class="project-image-container">
+                            <img src="https://placehold.co/600x400/1e2633/478cbf?text=Godot+Physics" alt="Godot Controller">
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="social-links footer-socials">
+                <a href="https://github.com/SentientDragon5" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/lashehane/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://sentientdragon5gamedev.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
+            </div>
+            <p>&copy; 2025 Logan Shehane</p>
+        </footer>
+    </div>
+
+    <script src="./background.js"></script>
+</body>
+</html>
