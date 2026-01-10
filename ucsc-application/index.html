@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UCSC Application</title>
+    <title>UCSC Portfolio | Logan Shehane</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -12,7 +13,7 @@
             <div class="logo">SentientDragon5</div>
             <nav>
                 <ul>
-                    <li><a href="../">Home</a></li>
+                    <li><a href="../index.html">Main Portfolio</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,21 +23,74 @@
         <main>
             <section class="hero">
                 <h1>Logan Shehane</h1>
-                <h2>SentientDragon5</h2>
-                <p>Welcome to my UCSC Application page.</p>
-                <div class="hero-actions">
-                    <textarea placeholder="Projects" style="width: 100%; height: 200px; padding: 10px; border: 1px solid var(--card-border); border-radius: 5px;"></textarea>
-                </div>
+                <h2>UCSC Computational Media Application Portfolio</h2>
+                <p>
+                    Selected works highlighting my contributions to Generative Methods, Tool Design, and Technical Systems.
+                </p>
+            </section>
+
+            <section id="interpretive">
+                <h2 class="section-title">Technical & Research Work</h2>
+                <ul class="portfolio-list">
+                    <li class="portfolio-item">
+                        <div class="project-preview">
+                            <img src="./media/WorldFactsDatabaseMarch.png" alt="Paper Figure">
+                        </div>
+                        <div class="portfolio-header">
+                            <h3>Conversational Interactions with Procedural Generators</h3>
+                            <div class="portfolio-links">
+                                <a href="https://dl.acm.org/doi/10.1145/3723498.3723788" target="_blank"><i class="fas fa-external-link-alt"></i> ACM Digital Library</a>
+                            </div>
+                        </div>
+                        <p>
+                            A research paper exploring frameworks for LLM-based procedural content generation.
+                        </p>
+                        <div class="contribution-note">
+                            <strong>My Contribution:</strong> Assisted in writing tool calling code, conducting LLM evaluation, created datasets, and contributed to the writing and editing of the paper.
+                        </div>
+                    </li>
+
+                    <li class="portfolio-item">
+                        <div class="project-preview">
+                            <img src="https://github.com/SentientDragon5/CMPM-118-LLM-Test/raw/main/example_images/example_trees.png" alt="Map Maker Interface">
+                        </div>
+                        <div class="portfolio-header">
+                            <h3>CMPM 118 Co-Creative Map Maker</h3>
+                            <div class="portfolio-links">
+                                <a href="https://github.com/SentientDragon5/CMPM-118-LLM-Test" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                            </div>
+                        </div>
+                        <p>
+                            This was a prototype that helped in the Conversation Interactions with Procedural Generators paper, that I wrote.
+                        </p>
+                        <div class="contribution-note">
+                            <strong>My Contribution:</strong> Developed the functionality of the application and implemented the tool calling architecture, I recieved help with constrain solving.
+                        </div>
+                    </li>
+
+                    <li class="portfolio-item">
+                        <div class="project-preview">
+                            <img src="./media/lsp_poster.png" alt="Layered Selection Prompting Poster">
+                        </div>
+                        <div class="portfolio-header">
+                            <h3>Layered Selection Prompting</h3>
+                            <div class="portfolio-links">
+                                <a href="https://github.com/collectioncard/Layered-Selection-Prompting" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                            </div>
+                        </div>
+                        <p>
+                            A framework designed to improve the reliability and specificity of LLM outputs through structured selection mechanisms.
+                        </p>
+                        <div class="contribution-note">
+                            <strong>My Contribution:</strong> Helped lay the framework for the project, assisted with design choices, and worked on improving the usability of the tool.
+                        </div>
+                    </li>
+                </ul>
             </section>
         </main>
     </div>
 
     <footer>
-        <div class="social-links footer-socials">
-            <a href="https://github.com/SentientDragon5" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/lashehane/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://sentientdragon5gamedev.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
-        </div>
         <p>&copy; 2026 Logan Shehane</p>
     </footer>
 </body>
